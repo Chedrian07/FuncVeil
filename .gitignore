@@ -65,6 +65,8 @@ coverage.xml
 *.feather
 *.h5
 *.hdf5
+# personal_data.csv는 예외적으로 포함
+!personal_data.csv
 
 # Image files
 *.png
