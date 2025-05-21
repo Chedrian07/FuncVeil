@@ -55,3 +55,32 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+
+# Data files
+*.csv
+*.xlsx
+*.xls
+*.json
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# Image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.svg
+*.ico
+*.webp
+
+# Output directories
+output/
+results/
+data/
+images/
+plots/
+figures/
