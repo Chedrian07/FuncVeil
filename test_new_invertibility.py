@@ -43,7 +43,7 @@ def test_individual_masks():
     # 각 마스킹 함수에 대해 가역성 평가
     all_scores = {}
     for name, mask in masks.items():
-        results = calculate_invertibility_score(mask, samples=200, plot=False)
+        results = calculate_invertibility_score(mask, samples=200, plot=False, return_dict=True)
         all_scores[name] = results['overall_score']
         
         print(f"\n{name}:")
@@ -90,7 +90,7 @@ def test_detailed_analysis():
     for name, mask in test_masks.items():
         mask.fit(test_data)
         print(f"\n{name} 상세 분석:")
-        results = calculate_invertibility_score(mask, samples=200, plot=True)
+        results = calculate_invertibility_score(mask, samples=200, plot=True, return_dict=True)
         input("다음 그래프를 보려면 Enter를 누르세요...")
 
 

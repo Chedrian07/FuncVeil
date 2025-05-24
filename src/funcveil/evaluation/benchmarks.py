@@ -51,7 +51,7 @@ def compare_masking_methods(
         sensitivity = mask.get_sensitivity()
         
         # 역변환 가능성 점수 계산
-        inv_result = calculate_invertibility_score(mask, samples=samples, plot=False)
+        inv_result = calculate_invertibility_score(mask, samples=samples, plot=False, return_dict=True)
         inv_score = inv_result['overall_score']
         
         # 결과 저장

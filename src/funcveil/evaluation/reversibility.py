@@ -98,8 +98,9 @@ def calculate_invertibility_score(
     mask_func: IFitMask, 
     samples: int = 100, 
     bins: int = 10, 
-    plot: bool = False
-) -> Dict[str, float]:
+    plot: bool = False,
+    return_dict: bool = False
+) -> Union[float, Dict[str, float]]:
     """마스킹 함수의 가역성 종합 평가
 
     Args:
@@ -107,9 +108,10 @@ def calculate_invertibility_score(
         samples: 테스트할 샘플 수
         bins: 결과값을 나눌 구간 수 (시각화용)
         plot: 결과 시각화 여부
+        return_dict: True일 경우 모든 지표를 딕셔너리로 반환, False일 경우 종합 점수만 반환
 
     Returns:
-        가역성 평가 지표들의 딕셔너리
+        return_dict가 True면 가역성 평가 지표들의 딕셔너리, False면 종합 점수 (float)
     """
     if not mask_func.initialized:
         raise ValueError("Mask function not initialized. Call fit() first.")
@@ -168,7 +170,11 @@ def calculate_invertibility_score(
     if plot:
         visualize_invertibility_analysis(mask_func, x_vals, y_vals, results, bins)
     
-    return results
+    # 반환값 결정
+    if return_dict:
+        return results
+    else:
+        return overall_score
 
 
 def visualize_invertibility_analysis(
