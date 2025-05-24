@@ -16,7 +16,8 @@ def compare_masking_methods(
     masks: Dict[str, IFitMask],
     data_range: Tuple[float, float],
     samples: int = 100,
-    figsize: Tuple[int, int] = (12, 10)
+    figsize: Tuple[int, int] = (12, 10),
+    save_path: Optional[str] = None
 ) -> Dict[str, Dict[str, Any]]:
     """여러 마스킹 방법 비교 및 시각화
 
@@ -25,6 +26,7 @@ def compare_masking_methods(
         data_range: 데이터 범위 (min, max)
         samples: 테스트할 샘플 수
         figsize: 그래프 크기
+        save_path: 그래프 저장 경로 (None이면 저장 안함)
 
     Returns:
         벤치마크 결과 딕셔너리
@@ -115,6 +117,12 @@ def compare_masking_methods(
     plt.grid(True)
     
     plt.tight_layout()
+    
+    # 그래프 저장 (선택적)
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"벤치마크 결과를 '{save_path}'에 저장했습니다.")
+    
     plt.show()
     
     return results

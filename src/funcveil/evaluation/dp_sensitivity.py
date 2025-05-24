@@ -16,7 +16,8 @@ def evaluate_dp_sensitivity(
     samples: int = 1000,
     repetitions: int = 10,
     plot: bool = True,
-    figsize: Tuple[int, int] = (12, 8)
+    figsize: Tuple[int, int] = (12, 8),
+    save_path: Optional[str] = None
 ) -> dict:
     """차분 프라이버시 민감도 평가
 
@@ -127,6 +128,12 @@ def evaluate_dp_sensitivity(
         plt.grid(True)
         
         plt.tight_layout()
+        
+        # 그래프 저장 (선택적)
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            print(f"DP 민감도 분석 결과를 '{save_path}'에 저장했습니다.")
+        
         plt.show()
     
     return results
@@ -136,7 +143,8 @@ def compare_dp_impact(
     mask_func: IFitMask,
     epsilon_values: List[float] = [0.1, 1.0, 10.0],
     samples: int = 100,
-    figsize: Tuple[int, int] = (12, 6)
+    figsize: Tuple[int, int] = (12, 6),
+    save_path: Optional[str] = None
 ) -> None:
     """DP 적용 여부에 따른 마스킹 결과 비교 시각화
 
@@ -180,6 +188,12 @@ def compare_dp_impact(
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
+    
+    # 그래프 저장 (선택적)
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"DP 영향 비교 결과를 '{save_path}'에 저장했습니다.")
+    
     plt.show()
 
 
@@ -189,7 +203,8 @@ def quantify_utility_privacy_tradeoff(
     samples: int = 1000,
     repetitions: int = 10,
     plot: bool = True,
-    figsize: Tuple[int, int] = (10, 6)
+    figsize: Tuple[int, int] = (10, 6),
+    save_path: Optional[str] = None
 ) -> dict:
     """유용성과 개인정보 보호 간 균형점 정량화
 
@@ -279,6 +294,12 @@ def quantify_utility_privacy_tradeoff(
         plt.xscale('log')
         
         plt.tight_layout()
+        
+        # 그래프 저장 (선택적)
+        if save_path:
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
+            print(f"유용성-프라이버시 트레이드오프 분석 결과를 '{save_path}'에 저장했습니다.")
+        
         plt.show()
     
     return utility_metrics

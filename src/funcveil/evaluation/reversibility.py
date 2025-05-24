@@ -99,7 +99,8 @@ def calculate_invertibility_score(
     samples: int = 100, 
     bins: int = 10, 
     plot: bool = False,
-    return_dict: bool = False
+    return_dict: bool = False,
+    save_path: Optional[str] = None
 ) -> Union[float, Dict[str, float]]:
     """마스킹 함수의 가역성 종합 평가
 
@@ -168,7 +169,7 @@ def calculate_invertibility_score(
     
     # 시각화
     if plot:
-        visualize_invertibility_analysis(mask_func, x_vals, y_vals, results, bins)
+        visualize_invertibility_analysis(mask_func, x_vals, y_vals, results, bins, save_path)
     
     # 반환값 결정
     if return_dict:
@@ -182,7 +183,8 @@ def visualize_invertibility_analysis(
     x_vals: np.ndarray,
     y_vals: List[float],
     results: Dict[str, float],
-    bins: int = 10
+    bins: int = 10,
+    save_path: Optional[str] = None
 ) -> None:
     """가역성 분석 결과 시각화"""
     fig, axes = plt.subplots(2, 2, figsize=(12, 10))
@@ -255,6 +257,12 @@ def visualize_invertibility_analysis(
     
     plt.suptitle(f'Invertibility Analysis: {mask_func.__class__.__name__}', fontsize=14)
     plt.tight_layout()
+    
+    # 그래프 저장 (선택적)
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"가역성 분석 결과를 '{save_path}'에 저장했습니다.")
+    
     plt.show()
 
 
@@ -262,7 +270,8 @@ def visualize_mask_function(
     mask_func: IFitMask, 
     samples: int = 100,
     with_derivative: bool = True,
-    figsize: Tuple[int, int] = (10, 6)
+    figsize: Tuple[int, int] = (10, 6),
+    save_path: Optional[str] = None
 ) -> None:
     """마스킹 함수와 도함수 시각화
 
@@ -271,6 +280,7 @@ def visualize_mask_function(
         samples: 시각화할 샘플 수
         with_derivative: 도함수 포함 여부
         figsize: 그래프 크기
+        save_path: 그래프 저장 경로 (None이면 저장 안함)
     """
     if not mask_func.initialized:
         raise ValueError("Mask function not initialized. Call fit() first.")
@@ -314,4 +324,10 @@ def visualize_mask_function(
         plt.legend()
     
     plt.tight_layout()
+    
+    # 그래프 저장 (선택적)
+    if save_path:
+        plt.savefig(save_path, dpi=300, bbox_inches='tight')
+        print(f"시각화 결과를 '{save_path}'에 저장했습니다.")
+    
     plt.show()
